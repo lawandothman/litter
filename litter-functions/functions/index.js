@@ -7,36 +7,35 @@ admin.initializeApp({
   databaseURL: 'https://litter-cf67f.firebaseio.com',
 })
 
-// // Create and Deploy Your First Cloud Functions
-// // https://firebase.google.com/docs/functions/write-firebase-functions
-//
-exports.helloWorld = functions.https.onRequest((request, response) => {
-  response.send('Hello from Firebase!')
-})
+const express = require('express')
+const app = express()
 
-exports.getLitters = functions.https.onRequest((req, res) => {
+app.get('/litters', (req, res) => {
   admin
     .firestore()
     .collection('litters')
+    .orderBy('createdAt', 'desc')
     .get()
     .then((data) => {
       let litters = []
       data.forEach((doc) => {
-        litters.push(doc.data())
+        litters.push({
+          litterId: doc.id,
+          body: doc.data().body,
+          userHandle: doc.data().userHandle,
+          createdAt: doc.data().createdAt,
+        })
       })
       return res.json(litters)
     })
     .catch((err) => console.error(err))
 })
 
-exports.createLitter = functions.https.onRequest((req, res) => {
-  if (req.method !== 'POST') {
-    return res.status(400).json({ err: 'Method not allowed' })
-  }
+app.post('/litter', (req, res) => {
   const newLitter = {
     body: req.body.body,
     userHandle: req.body.userHandle,
-    createdAt: admin.firestore.Timestamp.fromDate(new Date()),
+    createdAt: new Date().toISOString(),
   }
 
   admin
@@ -51,3 +50,5 @@ exports.createLitter = functions.https.onRequest((req, res) => {
       console.error(err)
     })
 })
+
+exports.api = functions.region('europe-west2').https.onRequest(app)
