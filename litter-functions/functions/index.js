@@ -8,6 +8,7 @@ const {
   getAllLitters,
   postOneLitter,
   getLitter,
+  commentOnLitter,
 } = require('./handlers/litters')
 const {
   signup,
@@ -21,10 +22,11 @@ const {
 app.get('/litters', getAllLitters)
 app.post('/litter', FBAuth, postOneLitter)
 app.get('/litter/:litterId', getLitter)
+app.post('/litter/:litterId/comment', FBAuth, commentOnLitter)
+
 // TODO delete litter
 // TODO like a litter
 // TODO unlike a litter
-// TODO comment on litter
 
 // Users Routes
 app.post('/signup', signup)
