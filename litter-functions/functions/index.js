@@ -4,7 +4,11 @@ const app = require('express')()
 
 const FBAuth = require('./util/fbAuth')
 
-const { getAllLitters, postOneLitter } = require('./handlers/litters')
+const {
+  getAllLitters,
+  postOneLitter,
+  getLitter,
+} = require('./handlers/litters')
 const {
   signup,
   login,
@@ -16,6 +20,11 @@ const {
 // Litter Routes
 app.get('/litters', getAllLitters)
 app.post('/litter', FBAuth, postOneLitter)
+app.get('/litter/:litterId', getLitter)
+// TODO delete litter
+// TODO like a litter
+// TODO unlike a litter
+// TODO comment on litter
 
 // Users Routes
 app.post('/signup', signup)

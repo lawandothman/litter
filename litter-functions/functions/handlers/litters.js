@@ -1,5 +1,6 @@
 const { db } = require('../util/admin')
 
+// GET ALL LITTERS
 exports.getAllLitters = (req, res) => {
   db.collection('litters')
     .orderBy('createdAt', 'desc')
@@ -24,6 +25,7 @@ exports.getAllLitters = (req, res) => {
     })
 }
 
+// POST A LITTER
 exports.postOneLitter = (req, res) => {
   if (req.body.body.trim() === '') {
     return res.status(400).json({ body: '❌ Body must not be empty' })
@@ -42,5 +44,36 @@ exports.postOneLitter = (req, res) => {
     .catch((err) => {
       res.status(500).json({ error: '❌ Something went wrong' })
       console.error(err)
+    })
+}
+
+// GET A LITTER
+exports.getLitter = (req, res) => {
+  let litterData = {}
+  db.doc(`litters/${req.params.litterId}`)
+    .get()
+    .then((doc) => {
+      if (!doc.exists) {
+        return res.status(404).json({ error: '❌  Litter not found' })
+      }
+      litterData = doc.data()
+      litterData.litterId = doc.id
+      return db
+        .collection('comments')
+        .orderBy('createdAt', 'desc')
+        .where('litterId', '==', req.params.litterId)
+        .get()
+    })
+    .then((data) => {
+      litterData.comments = []
+      data.forEach((doc) => {
+        console.log(doc.data())
+        litterData.comments.push(doc.data())
+      })
+      return res.json(litterData)
+    })
+    .catch((err) => {
+      console.error(err)
+      res.status(500).json({ error: err.code })
     })
 }
