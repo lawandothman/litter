@@ -208,3 +208,27 @@ exports.unlikeLitter = (req, res) => {
       res.status(500).json({ error: '❌  Something went wrong' })
     })
 }
+
+// DELETE A LITTER
+exports.deleteLitter = (req, res) => {
+  const document = db.doc(`/litters/${req.params.litterId}`)
+  document
+    .get()
+    .then((doc) => {
+      if (!doc.exists) {
+        return res.status(400).json({ error: '❌  Litter not found' })
+      }
+      if (doc.data().userHandle !== req.user.handle) {
+        return res.status(403).json({ error: '❌  Unauthorized' })
+      } else {
+        return document.delete()
+      }
+    })
+    .then(() => {
+      res.json({ message: '✅  Litter deleted successfully' })
+    })
+    .catch((err) => {
+      console.error(err)
+      res.status(500).json({ error: '❌  Something went wrong' })
+    })
+}

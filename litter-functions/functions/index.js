@@ -11,6 +11,7 @@ const {
   commentOnLitter,
   likeLitter,
   unlikeLitter,
+  deleteLitter,
 } = require('./handlers/litters')
 
 const {
@@ -28,9 +29,7 @@ app.get('/litter/:litterId', getLitter)
 app.post('/litter/:litterId/comment', FBAuth, commentOnLitter)
 app.get('/litter/:litterId/like', FBAuth, likeLitter)
 app.get('/litter/:litterId/unlike', FBAuth, unlikeLitter)
-
-// TODO delete litter
-// TODO unlike a litter
+app.delete('/litter/:litterId', FBAuth, deleteLitter)
 
 // Users Routes
 app.post('/signup', signup)
