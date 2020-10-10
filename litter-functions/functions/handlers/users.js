@@ -33,7 +33,7 @@ exports.signup = (req, res) => {
       if (doc.exists) {
         return res
           .status(400)
-          .json({ handle: '❌ This handle is already taken' })
+          .json({ handle: '❌  This handle is already taken' })
       } else {
         return firebase
           .auth()
@@ -61,7 +61,7 @@ exports.signup = (req, res) => {
     .catch((err) => {
       console.error(err)
       if (err.code === 'auth/email-already-in-use') {
-        return res.status(400).json({ email: '❌ Email is already in use' })
+        return res.status(400).json({ email: '❌  Email is already in use' })
       } else {
         return res.status(500).json({ error: err.code })
       }
@@ -93,7 +93,7 @@ exports.login = (req, res) => {
       if (err.code === 'auth/wrong-password') {
         return res
           .status(403)
-          .json({ general: '❌ Wrong credentials, please try again ' })
+          .json({ general: '❌  Wrong credentials, please try again ' })
       } else {
         return res.status(500).json({ error: err.code })
       }
@@ -106,11 +106,11 @@ exports.addUserDetails = (req, res) => {
   db.doc(`/users/${req.user.handle}`)
     .update(userDetails)
     .then(() => {
-      return res.json({ message: '✅ Details added successfully' })
+      return res.json({ message: '✅  Details added successfully' })
     })
     .catch((err) => {
       console.error(err)
-      return res.status(500).json({ error: err.code })
+      return res.status(500).json({ error: '❌  Something went wrong' })
     })
 }
 
@@ -137,7 +137,7 @@ exports.getAuthenticatedUser = (req, res) => {
     })
     .catch((err) => {
       console.error(err)
-      return res.status(500).json({ err: err.code })
+      return res.status(500).json({ err: '❌  Something went wrong' })
     })
 }
 
@@ -158,7 +158,7 @@ exports.uploadImage = (req, res) => {
 
     // CHECK FILE TYPE
     if (mimetype !== 'image/jpeg' && mimetype !== 'image/png') {
-      return res.status(400).json({ error: '❌ Wrong file type submitted' })
+      return res.status(400).json({ error: '❌  Wrong file type submitted' })
     }
 
     // PROCESS FILE NAME
@@ -189,11 +189,11 @@ exports.uploadImage = (req, res) => {
         return db.doc(`/users/${req.user.handle}`).update({ imageUrl })
       })
       .then(() => {
-        return res.json({ message: '✅ Image uploaded successfully' })
+        return res.json({ message: '✅  Image uploaded successfully' })
       })
       .catch((err) => {
         console.error(err)
-        return res.status(500).json({ error: err.code })
+        return res.status(500).json({ error: '❌  Something went wrong' })
       })
   })
   busboy.end(req.rawBody)

@@ -8,8 +8,8 @@ module.exports = (req, res, next) => {
   ) {
     idToken = req.headers.authorization.split('Bearer ')[1]
   } else {
-    console.error('❌ No token found')
-    return res.status(403).json({ error: '❌ Unauthorized' })
+    console.error('❌  No token found')
+    return res.status(403).json({ error: '❌  Unauthorized' })
   }
 
   admin
@@ -29,7 +29,7 @@ module.exports = (req, res, next) => {
       return next()
     })
     .catch((err) => {
-      console.error('❌ Error while verifying token', err)
+      console.error('❌  Error while verifying token', err)
       return res.status(403).json(err)
     })
 }
