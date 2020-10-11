@@ -48,10 +48,14 @@ exports.createNotificationOnLike = functions
   .region('europe-west2')
   .firestore.document('likes/{id}')
   .onCreate((snapshot) => {
-    db.doc(`/litters/${snapshot.data().litterId}`)
+    return db
+      .doc(`/litters/${snapshot.data().litterId}`)
       .get()
       .then((doc) => {
-        if (doc.exists) {
+        if (
+          doc.exists &&
+          doc.data().userHandle !== snapshot.data().userHandle
+        ) {
           return db.doc(`/notifications/${snapshot.id}`).set({
             createdAt: new Date().toISOString(),
             recipient: doc.data().userHandle,
@@ -62,13 +66,7 @@ exports.createNotificationOnLike = functions
           })
         }
       })
-      .then(() => {
-        return
-      })
-      .catch((err) => {
-        console.error(err)
-        return
-      })
+      .catch((err) => console.error(err))
   })
 
 // DELETE THE NOTIFICATION WHEN THE LITTER IS UNLIKED
@@ -76,11 +74,9 @@ exports.deleteNotificationOnUnlike = functions
   .region('europe-west2')
   .firestore.document('likes/{id}')
   .onDelete((snapshot) => {
-    db.doc(`notifications/${snapshot.id}`)
+    return db
+      .doc(`notifications/${snapshot.id}`)
       .delete()
-      .then(() => {
-        return
-      })
       .catch((err) => {
         console.error(err)
         return
@@ -92,10 +88,14 @@ exports.createNotificationOnComment = functions
   .region('europe-west2')
   .firestore.document('comments/{id}')
   .onCreate((snapshot) => {
-    db.doc(`litters/${snapshot.data().litterId}`)
+    return db
+      .doc(`litters/${snapshot.data().litterId}`)
       .get()
       .then((doc) => {
-        if (doc.exists) {
+        if (
+          doc.exists &&
+          doc.data().userHandle !== snapshot.data().userHandle
+        ) {
           return db.doc(`notifications/${snapshot.id}`).set({
             createdAt: new Date().toISOString(),
             recipient: doc.data().userHandle,
@@ -105,9 +105,6 @@ exports.createNotificationOnComment = functions
             litterId: doc.id,
           })
         }
-      })
-      .then(() => {
-        return
       })
       .catch((err) => {
         console.error(err)
