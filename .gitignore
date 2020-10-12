@@ -44,6 +44,7 @@ bower_components
 build/Release
 
 # Dependency directories
+node_modules
 node_modules/
 
 # Optional npm cache directory
@@ -66,3 +67,20 @@ node_modules/
 
 # Service Key 
 litter-cf67f-firebase-adminsdk-gjcvn-deb4dceca0.json
+
+# dependencies
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# production
+/build
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
