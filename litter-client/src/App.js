@@ -1,8 +1,8 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import './App.css'
-import { ThemeProvider } from '@material-ui/core/styles'
-import createMuiTheme from '@material-ui/core/styles/createMuiTheme'
+import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles'
+import axios from 'axios'
 
 // Components
 import Navbar from './components/Navbar'
@@ -11,6 +11,9 @@ import Navbar from './components/Navbar'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
+
+axios.defaults.baseURL =
+  'https://europe-west2-litter-cf67f.cloudfunctions.net/api'
 
 const theme = createMuiTheme({
   palette: {

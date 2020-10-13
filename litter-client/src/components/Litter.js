@@ -1,6 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import withStyles from '@material-ui/core/styles/withStyles'
+import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime'
 // Material UI Stuff
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
@@ -21,19 +23,19 @@ const styles = {
   },
 }
 
-const Litter = (props) => {
-  const {
-    classes,
-    litter: {
-      body,
-      createdAt,
-      userImage,
-      userHandle,
-      litterId,
-      likeCount,
-      commentCount,
-    },
-  } = props
+const Litter = ({
+  classes,
+  litter: {
+    body,
+    createdAt,
+    userImage,
+    userHandle,
+    litterId,
+    likeCount,
+    commentCount,
+  },
+}) => {
+  dayjs.extend(relativeTime)
   return (
     <Card className={classes.card}>
       <CardMedia
@@ -51,7 +53,7 @@ const Litter = (props) => {
           {userHandle}
         </Typography>
         <Typography variant='body2' color='textSecondary'>
-          {createdAt}
+          {dayjs(createdAt).fromNow()}
         </Typography>
         <Typography variant='body1'>{body}</Typography>
       </CardContent>
