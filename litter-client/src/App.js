@@ -5,6 +5,9 @@ import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 import themeFile from './util/theme'
 import axios from 'axios'
 import jwtDecode from 'jwt-decode'
+// Redux
+import { Provider } from 'react-redux'
+import store from './redux/store'
 // Components
 import Navbar from './components/Navbar'
 import AuthRoute from './util/AuthRoute'
@@ -25,6 +28,7 @@ if (token) {
   if (decodedToken.exp * 1000 < Date.now()) {
     window.location.href = '/login'
     authenticated = false
+    localStorage.clear()
   } else {
     authenticated = true
   }
@@ -33,7 +37,7 @@ if (token) {
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <div className='App'>
+      <Provider store={store}>
         <Router>
           <Navbar />
           <div className='container'>
@@ -54,7 +58,7 @@ function App() {
             </Switch>
           </div>
         </Router>
-      </div>
+      </Provider>
     </ThemeProvider>
   )
 }
