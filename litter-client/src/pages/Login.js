@@ -21,7 +21,14 @@ const Login = ({ classes, loginUser, UI: { loading, errors } }) => {
   const [form, setState] = useState({
     email: '',
     password: '',
+    error: {},
   })
+
+  useEffect(() => {
+    if (errors) {
+      setState((form) => ({ ...form, error: errors }))
+    }
+  }, [errors])
 
   const handleChange = (event) => {
     setState({
@@ -56,8 +63,8 @@ const Login = ({ classes, loginUser, UI: { loading, errors } }) => {
             type='email'
             label='Email'
             className={classes.textField}
-            helperText={errors.email}
-            error={errors.email ? true : false}
+            helperText={form.error.email}
+            error={form.error.email ? true : false}
             value={form.email}
             onChange={handleChange}
             fullWidth
@@ -68,15 +75,15 @@ const Login = ({ classes, loginUser, UI: { loading, errors } }) => {
             type='password'
             label='Password'
             className={classes.textField}
-            helperText={errors.password}
-            error={errors.password ? true : false}
+            helperText={form.error.password}
+            error={form.error.password ? true : false}
             value={form.password}
             onChange={handleChange}
             fullWidth
           />
-          {errors.general && (
+          {form.error.general && (
             <Typography variant='body2' className={classes.customError}>
-              {errors.general}
+              {form.error.general}
             </Typography>
           )}
           <Button
