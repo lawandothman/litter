@@ -7,7 +7,8 @@ import {
 } from '../types'
 import axios from 'axios'
 
-export const loginUser = (userData, history) => (dispatch) => {
+// You need to fix this for all of them
+export const loginUser = (dispatch) => (userData, history) => {
   // This shouldn't be here. This should be maintained inside of the Login Component.
   // This action should only dispatch data, not fetch data.
   dispatch({ type: LOADING_UI })

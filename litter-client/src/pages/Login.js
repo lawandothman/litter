@@ -10,6 +10,7 @@ import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import CircularProgress from '@material-ui/core/CircularProgress'
 // Redux Stuff
+import { loginUser } from '../redux/actions/userActions'
 import { connect } from 'react-redux'
 
 const styles = (theme) => ({
@@ -28,7 +29,6 @@ const Login = ({ classes, loginUser, UI: { loading, errors } }) => {
       [event.target.name]: event.target.value,
     })
   }
-
   const history = useHistory()
 
   const handleSubmit = (event) => {
@@ -115,8 +115,8 @@ const mapStateToProps = (state) => ({
   UI: state.UI,
 })
 
-const mapActionsToProps = ({loginUser}) => ({
-  loginUser,
+const mapActionsToProps = (dispatch) => ({
+  loginUser: loginUser(dispatch)
 })
 
 export default connect(
