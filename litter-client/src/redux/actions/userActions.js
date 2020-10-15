@@ -8,6 +8,8 @@ import {
 import axios from 'axios'
 
 export const loginUser = (userData, history) => (dispatch) => {
+  // This shouldn't be here. This should be maintained inside of the Login Component.
+  // This action should only dispatch data, not fetch data.
   dispatch({ type: LOADING_UI })
   axios
     .post('/login', userData)
