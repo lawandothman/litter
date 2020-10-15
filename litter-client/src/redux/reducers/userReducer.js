@@ -1,25 +1,24 @@
-import { SET_USER, SET_AUTHENTICATED, SET_UNAUTHENTICATED } from '../types'
+import { SET_USER, SET_TOKEN } from '../types'
 
 const initialState = {
-  authenticated: false,
   credentials: {},
   likes: [],
   notifications: [],
+  token: null,
 }
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case SET_AUTHENTICATED:
-      return {
-        ...state,
-        authenticated: true,
-      }
-    case SET_UNAUTHENTICATED:
-      return initialState
     case SET_USER:
       return {
-        authenticated: true,
+        ...state,
         ...action.payload,
+      }
+    case SET_TOKEN:
+      console.log(`setting token ${action.payload}`)
+      return {
+        ...state,
+        token: action.payload,
       }
     default:
       return initialState

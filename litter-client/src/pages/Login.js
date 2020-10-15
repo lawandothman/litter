@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { useHistory, Link } from 'react-router-dom'
 import withStyles from '@material-ui/core/styles/withStyles'
-import PropTypes from 'prop-types'
 import AppIcon from '../images/icon.png'
 // Material UI Stuff
 import Grid from '@material-ui/core/Grid'
@@ -9,18 +8,36 @@ import Typography from '@material-ui/core/Typography'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import { post, get } from '../util/apiClient'
 // Redux Stuff
-import { loginUser } from '../redux/actions/userActions'
 import { connect } from 'react-redux'
+import { setToken, setUser } from '../redux/actions/userActions'
 
 const styles = (theme) => ({
   ...theme.userPage,
 })
 
-const Login = ({ classes, loginUser, UI: { loading, errors } }) => {
+const getToken = async (userData) => {
+  try {
+    return await post('/login', userData)
+  } catch (error) {
+    throw error.response.data
+  }
+}
+
+const getUser = async () => {
+  try {
+    return await get('/user')
+  } catch (error) {
+    throw error.response.data
+  }
+}
+
+const Login = ({ classes, UI: { loading }, setUser, setToken }) => {
   const [form, setState] = useState({
     email: '',
     password: '',
+    errors: null,
   })
 
   const handleChange = (event) => {
@@ -31,16 +48,23 @@ const Login = ({ classes, loginUser, UI: { loading, errors } }) => {
   }
   const history = useHistory()
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
     const userData = {
       email: form.email,
       password: form.password,
     }
-    loginUser(userData, history)
+    try {
+      const { token } = await getToken(userData)
+      setToken(token)
+      const user = await getUser()
+      setUser(user)
+      history.push('/')
+    } catch (error) {
+      setState({ ...form, errors: error })
+    }
   }
 
-  console.log(errors)
   return (
     <Grid container className={classes.form}>
       <Grid item sm />
@@ -56,8 +80,8 @@ const Login = ({ classes, loginUser, UI: { loading, errors } }) => {
             type='email'
             label='Email'
             className={classes.textField}
-            helperText={errors?.email}
-            error={!!errors?.email}
+            helperText={form.errors?.email}
+            error={!!form.errors?.email}
             value={form.email}
             onChange={handleChange}
             fullWidth
@@ -68,15 +92,15 @@ const Login = ({ classes, loginUser, UI: { loading, errors } }) => {
             type='password'
             label='Password'
             className={classes.textField}
-            helperText={errors?.email}
-            error={!!errors?.email}
+            helperText={form.errors?.email}
+            error={!!form.errors?.email}
             value={form.password}
             onChange={handleChange}
             fullWidth
           />
-          {errors && errors.general && (
+          {form.errors?.general && (
             <Typography variant='body2' className={classes.customError}>
-              {errors.general}
+              {form.errors.general}
             </Typography>
           )}
           <Button
@@ -102,21 +126,14 @@ const Login = ({ classes, loginUser, UI: { loading, errors } }) => {
   )
 }
 
-// Get rid of propTypes, they are useless unless you have typescript
-Login.propTypes = {
-  classes: PropTypes.object.isRequired,
-  loginUser: PropTypes.func,
-  user: PropTypes.object, 
-  UI: PropTypes.object.isRequired,
-}
-
 const mapStateToProps = (state) => ({
   user: state.user,
   UI: state.UI,
 })
 
 const mapActionsToProps = (dispatch) => ({
-  loginUser: loginUser(dispatch)
+  setUser: setUser(dispatch),
+  setToken: setToken(dispatch),
 })
 
 export default connect(

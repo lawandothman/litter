@@ -1,34 +1,13 @@
 import {
   SET_USER,
-  SET_ERRORS,
-  CLEAR_ERRORS,
   LOADING_UI,
-  SET_UNAUTHENTICATED,
+  SET_TOKEN,
+  CLEAR_ERRORS,
+  SET_ERRORS,
 } from '../types'
 import axios from 'axios'
 
-// You need to fix this for all of them
-export const loginUser = (dispatch) => (userData, history) => {
-  // This shouldn't be here. This should be maintained inside of the Login Component.
-  // This action should only dispatch data, not fetch data.
-  dispatch({ type: LOADING_UI })
-  axios
-    .post('/login', userData)
-    .then((res) => {
-      setAuthorizationHeader(res.data.token)
-      dispatch(getUserData())
-      dispatch({ type: CLEAR_ERRORS })
-      history.push('/')
-    })
-    .catch((err) => {
-      dispatch({
-        type: SET_ERRORS,
-        payload: err.response.data,
-      })
-    })
-}
-
-export const signupUser = (newUserData, history) => (dispatch) => {
+export const signupUser = (dispatch) => (newUserData, history) => {
   dispatch({ type: LOADING_UI })
   axios
     .post('/signup', newUserData)
@@ -46,10 +25,9 @@ export const signupUser = (newUserData, history) => (dispatch) => {
     })
 }
 
-export const logoutUser = () => (dispatch) => {
-  localStorage.removeItem('FBIdToken')
-  delete axios.defaults.headers['Authorization']
-  dispatch({ type: SET_UNAUTHENTICATED })
+export const logoutUser = (dispatch) => () => {
+  console.log('Hello')
+  dispatch({ type: SET_TOKEN, payload: null })
 }
 export const getUserData = () => (dispatch) => {
   axios
@@ -65,8 +43,15 @@ export const getUserData = () => (dispatch) => {
     })
 }
 
-const setAuthorizationHeader = (token) => {
+export const setAuthorizationHeader = (token) => {
   const FBIdToken = `Bearer ${token}`
   localStorage.setItem('FBIdToken', FBIdToken)
   axios.defaults.headers.common['Authorization'] = FBIdToken
+}
+
+export const setUser = (dispatch) => (user) => {
+  dispatch({ type: SET_USER, payload: user })
+}
+export const setToken = (dispatch) => (token) => {
+  dispatch({ type: SET_TOKEN, payload: token })
 }
