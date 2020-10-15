@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useHistory, Link } from 'react-router-dom'
 import withStyles from '@material-ui/core/styles/withStyles'
 import PropTypes from 'prop-types'
@@ -11,7 +11,6 @@ import Button from '@material-ui/core/Button'
 import CircularProgress from '@material-ui/core/CircularProgress'
 // Redux Stuff
 import { connect } from 'react-redux'
-import { loginUser } from '../redux/actions/userActions'
 
 const styles = (theme) => ({
   ...theme.userPage,
@@ -21,14 +20,7 @@ const Login = ({ classes, loginUser, UI: { loading, errors } }) => {
   const [form, setState] = useState({
     email: '',
     password: '',
-    error: {},
   })
-
-  useEffect(() => {
-    if (errors) {
-      setState((form) => ({ ...form, error: errors }))
-    }
-  }, [errors])
 
   const handleChange = (event) => {
     setState({
@@ -48,6 +40,7 @@ const Login = ({ classes, loginUser, UI: { loading, errors } }) => {
     loginUser(userData, history)
   }
 
+  console.log(errors)
   return (
     <Grid container className={classes.form}>
       <Grid item sm />
@@ -63,8 +56,8 @@ const Login = ({ classes, loginUser, UI: { loading, errors } }) => {
             type='email'
             label='Email'
             className={classes.textField}
-            helperText={form.error.email}
-            error={form.error.email ? true : false}
+            helperText={errors?.email}
+            error={!!errors?.email}
             value={form.email}
             onChange={handleChange}
             fullWidth
@@ -75,15 +68,15 @@ const Login = ({ classes, loginUser, UI: { loading, errors } }) => {
             type='password'
             label='Password'
             className={classes.textField}
-            helperText={form.error.password}
-            error={form.error.password ? true : false}
+            helperText={errors?.email}
+            error={!!errors?.email}
             value={form.password}
             onChange={handleChange}
             fullWidth
           />
-          {form.error.general && (
+          {errors && errors.general && (
             <Typography variant='body2' className={classes.customError}>
-              {form.error.general}
+              {errors.general}
             </Typography>
           )}
           <Button
@@ -109,10 +102,11 @@ const Login = ({ classes, loginUser, UI: { loading, errors } }) => {
   )
 }
 
+// Get rid of propTypes, they are useless unless you have typescript
 Login.propTypes = {
   classes: PropTypes.object.isRequired,
-  loginUser: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired,
+  loginUser: PropTypes.func,
+  user: PropTypes.object, 
   UI: PropTypes.object.isRequired,
 }
 
@@ -121,9 +115,9 @@ const mapStateToProps = (state) => ({
   UI: state.UI,
 })
 
-const mapActionsToProps = {
+const mapActionsToProps = ({loginUser}) => ({
   loginUser,
-}
+})
 
 export default connect(
   mapStateToProps,
