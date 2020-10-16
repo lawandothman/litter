@@ -14,7 +14,7 @@ import { connect } from 'react-redux'
 import { setToken, setUser } from '../redux/actions/userActions'
 
 const styles = (theme) => ({
-  ...theme.userPage,
+  ...theme.theme,
 })
 
 const getToken = async (newUserData) => {
@@ -33,12 +33,13 @@ const getUser = async () => {
   }
 }
 
-const Signup = ({ classes, UI: { loading } }) => {
+const Signup = ({ classes }) => {
   const [form, setState] = useState({
     email: '',
     password: '',
     confirmPassword: '',
     handle: '',
+    loading: false,
     errors: null,
   })
 
@@ -60,6 +61,7 @@ const Signup = ({ classes, UI: { loading } }) => {
       handle: form.handle,
     }
     try {
+      setState({ ...form, loading: true })
       const { token } = await getToken(newUserData)
       setToken(token)
       const newUser = await getUser()
@@ -137,10 +139,10 @@ const Signup = ({ classes, UI: { loading } }) => {
             variant='contained'
             color='primary'
             className={classes.button}
-            disabled={loading}
+            disabled={form.loading}
           >
             Sign Up
-            {loading && (
+            {form.loading && (
               <CircularProgress size={30} className={classes.progress} />
             )}
           </Button>

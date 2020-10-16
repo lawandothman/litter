@@ -1,5 +1,6 @@
-import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
+import { createStore, combineReducers, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
+import { composeWithDevTools } from 'redux-devtools-extension'
 import dataReducer from './reducers/dataReducer'
 import userReducer from './reducers/userReducer'
 
@@ -15,10 +16,7 @@ const reducers = combineReducers({
 const store = createStore(
   reducers,
   initialState,
-  compose(
-    applyMiddleware(...middleware),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-  )
+  composeWithDevTools(applyMiddleware(...middleware))
 )
 
 export default store
