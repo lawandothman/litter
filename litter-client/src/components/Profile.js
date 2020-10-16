@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import dayjs from 'dayjs'
 import { post, get } from '../util/apiClient'
 import EditDetails from './EditDetails'
+import MyButton from '../util/MyButton'
 //Redux
 import { setUser, loadUser, logoutUser } from '../redux/actions/userActions'
 import { connect } from 'react-redux'
@@ -13,8 +14,6 @@ import Button from '@material-ui/core/Button'
 import Paper from '@material-ui/core/Paper'
 import MuiLink from '@material-ui/core/Link'
 import Typography from '@material-ui/core/Typography'
-import IconButton from '@material-ui/core/IconButton'
-import Tooltip from '@material-ui/core/Tooltip'
 // Icons
 import LocationOn from '@material-ui/icons/LocationOn'
 import LinkIcon from '@material-ui/icons/Link'
@@ -112,11 +111,13 @@ const Profile = ({
               onChange={handleImageChange}
               hidden='hidden'
             />
-            <Tooltip title='Change profile picture' placement='top'>
-              <IconButton onClick={handleEditPicture} className='button'>
-                <CameraAltIcon color='primary'></CameraAltIcon>
-              </IconButton>
-            </Tooltip>
+            <MyButton
+              tip='Change profile picture'
+              onClick={handleEditPicture}
+              btnClassName='button'
+            >
+              <CameraAltIcon color='primary'></CameraAltIcon>
+            </MyButton>
           </div>
           <hr />
           <div className='profile-details'>
@@ -150,11 +151,9 @@ const Profile = ({
             <CalendarToday color='primary' />{' '}
             <span>Joined {dayjs(createdAt).format('MMM YYYY')}</span>
           </div>
-          <Tooltip title='Log Out' placement='top'>
-            <IconButton onClick={logoutUser}>
-              <KeyboardReturn color='primary' />
-            </IconButton>
-          </Tooltip>
+          <MyButton tip='Log Out' onClick={logoutUser}>
+            <KeyboardReturn color='primary' />
+          </MyButton>
           <EditDetails />
         </div>
       </Paper>

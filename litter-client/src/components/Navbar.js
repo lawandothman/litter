@@ -1,24 +1,27 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-
+import MyButton from '../util/MyButton'
 // Material UI Stuff
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Button from '@material-ui/core/Button'
-import { logoutUser } from '../redux/actions/userActions'
+// Icons
+import AddIcon from '@material-ui/icons/Add'
+import HomeIcon from '@material-ui/icons/Home'
+import Notifications from '@material-ui/icons/Notifications'
 
-const Navbar = ({ authenticated, logoutUser }) => {
+const Navbar = ({ authenticated }) => {
   return (
     <AppBar>
       <Toolbar className='nav-container'>
-        <Button color='inherit' component={Link} to='/'>
-          Home
-        </Button>
         {(() => {
           if (!authenticated) {
             return (
               <>
+                <Button color='inherit' component={Link} to='/'>
+                  Home
+                </Button>
                 <Button color='inherit' component={Link} to='/login'>
                   Log In
                 </Button>
@@ -29,14 +32,19 @@ const Navbar = ({ authenticated, logoutUser }) => {
             )
           }
           return (
-            <Button
-              color='inherit'
-              component={Link}
-              to='/login'
-              onClick={logoutUser}
-            >
-              Log Out
-            </Button>
+            <Fragment>
+              <MyButton tip='Post a Litter'>
+                <AddIcon color='secondary' />
+              </MyButton>
+              <Link to='/'>
+                <MyButton tip='Home'>
+                  <HomeIcon color='secondary' />
+                </MyButton>
+              </Link>
+              <MyButton tip='Notifications'>
+                <Notifications color='secondary' />
+              </MyButton>
+            </Fragment>
           )
         })()}
       </Toolbar>
@@ -48,7 +56,4 @@ const mapStateToProps = (state) => ({
   authenticated: !!state.user?.token,
 })
 
-const mapActionsToProps = (dispatch) => ({
-  logoutUser: logoutUser(dispatch),
-})
-export default connect(mapStateToProps, mapActionsToProps)(Navbar)
+export default connect(mapStateToProps)(Navbar)

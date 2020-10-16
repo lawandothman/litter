@@ -1,22 +1,24 @@
 import React, { Fragment, useState } from 'react'
 import withStyles from '@material-ui/core/styles/withStyles'
 import { post, get } from '../util/apiClient'
+import MyButton from '../util/MyButton'
 // Redux
 import { connect } from 'react-redux'
 import { loadUser, setUser } from '../redux/actions/userActions'
 // Material UI
-import Tooltip from '@material-ui/core/Tooltip'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import Dialog from '@material-ui/core/Dialog'
 import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogTitle from '@material-ui/core/DialogTitle'
-import IconButton from '@material-ui/core/IconButton'
 import EditIcon from '@material-ui/icons/Edit'
 
 const styles = (theme) => ({
   ...theme.theme,
+  button: {
+    float: 'right',
+  },
 })
 
 const EditDetails = ({ credentials, classes, loadUser, setUser }) => {
@@ -65,11 +67,13 @@ const EditDetails = ({ credentials, classes, loadUser, setUser }) => {
 
   return (
     <Fragment>
-      <Tooltip title='Edit details' placement='top'>
-        <IconButton onClick={handleOpen} className={classes.button}>
-          <EditIcon color='primary' />
-        </IconButton>
-      </Tooltip>
+      <MyButton
+        tip='Edit Details'
+        onClick={handleOpen}
+        btnClassName={classes.button}
+      >
+        <EditIcon color='primary' />
+      </MyButton>
       <Dialog open={state.open} onClose={handleClose} fullWidth maxWidth='sm'>
         <DialogTitle>Edit your details</DialogTitle>
         <DialogContent>
