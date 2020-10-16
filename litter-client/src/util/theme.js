@@ -12,7 +12,7 @@ export default {
   typography: {
     useNextVariants: true,
   },
-  userPage: {
+  theme: {
     form: {
       textAlign: 'center',
     },

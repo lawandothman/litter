@@ -1,7 +1,8 @@
-import { SET_USER, SET_TOKEN } from '../types'
+import { SET_USER, SET_TOKEN, LOADING_USER } from '../types'
 
 const initialState = {
   credentials: {},
+  loading: false,
   likes: [],
   notifications: [],
   token: null,
@@ -12,13 +13,18 @@ export default function (state = initialState, action) {
     case SET_USER:
       return {
         ...state,
+        loading: false,
         ...action.payload,
       }
     case SET_TOKEN:
-      console.log(`setting token ${action.payload}`)
       return {
         ...state,
         token: action.payload,
+      }
+    case LOADING_USER:
+      return {
+        ...state,
+        loading: true,
       }
     default:
       return initialState

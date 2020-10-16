@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import Grid from '@material-ui/core/Grid'
-
+// Components
 import Litter from '../components/Litter'
+import Profile from '../components/Profile'
 
 const Home = () => {
   // Fetching the litters from the API
-  const [litters, setLitters] = useState([])
+  const [litters, setLitters] = useState()
   useEffect(() => {
     axios
       .get('/litters')
@@ -15,6 +16,7 @@ const Home = () => {
       })
       .catch((err) => console.error(err))
   }, [])
+
   let recentLittersMarkUp = litters ? (
     litters.map((litter) => <Litter key={litter.litterId} litter={litter} />)
   ) : (
@@ -24,7 +26,7 @@ const Home = () => {
   return (
     <Grid container spacing={10}>
       <Grid item sm={4} xs={12}>
-        <p>Profile ...</p>
+        <Profile />
       </Grid>
       <Grid item sm={8} xs={12}>
         {recentLittersMarkUp}

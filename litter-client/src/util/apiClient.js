@@ -9,7 +9,6 @@ const getToken = () => {
 }
 
 export const post = async (url, data) => {
-  console.log(url, getToken())
   return (
     await axios.post(url, data, {
       headers: { Authorization: `Bearer ${getToken()}` },
@@ -17,7 +16,6 @@ export const post = async (url, data) => {
   ).data
 }
 export const get = async (url) => {
-  console.log(url, getToken())
   return (
     await axios.get(url, {
       headers: { Authorization: `Bearer ${getToken()}` },

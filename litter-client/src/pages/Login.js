@@ -2,19 +2,19 @@ import React, { useState } from 'react'
 import { useHistory, Link } from 'react-router-dom'
 import withStyles from '@material-ui/core/styles/withStyles'
 import AppIcon from '../images/icon.png'
+import { post, get } from '../util/apiClient'
 // Material UI Stuff
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import CircularProgress from '@material-ui/core/CircularProgress'
-import { post, get } from '../util/apiClient'
 // Redux Stuff
 import { connect } from 'react-redux'
-import { setToken, setUser } from '../redux/actions/userActions'
+import { loadUser, setToken, setUser } from '../redux/actions/userActions'
 
 const styles = (theme) => ({
-  ...theme.userPage,
+  ...theme.theme,
 })
 
 const getToken = async (userData) => {
@@ -33,10 +33,11 @@ const getUser = async () => {
   }
 }
 
-const Login = ({ classes, UI: { loading }, setUser, setToken }) => {
+const Login = ({ classes, setUser, setToken, loadUser }) => {
   const [form, setState] = useState({
     email: '',
     password: '',
+    loading: false,
     errors: null,
   })
 
@@ -55,7 +56,9 @@ const Login = ({ classes, UI: { loading }, setUser, setToken }) => {
       password: form.password,
     }
     try {
+      setState({ ...form, loading: true })
       const { token } = await getToken(userData)
+      loadUser()
       setToken(token)
       const user = await getUser()
       setUser(user)
@@ -108,10 +111,10 @@ const Login = ({ classes, UI: { loading }, setUser, setToken }) => {
             variant='contained'
             color='primary'
             className={classes.button}
-            disabled={loading}
+            disabled={form.loading}
           >
             Log In
-            {loading && (
+            {form.loading && (
               <CircularProgress size={30} className={classes.progress} />
             )}
           </Button>
@@ -134,6 +137,7 @@ const mapStateToProps = (state) => ({
 const mapActionsToProps = (dispatch) => ({
   setUser: setUser(dispatch),
   setToken: setToken(dispatch),
+  loadUser: loadUser(dispatch),
 })
 
 export default connect(
