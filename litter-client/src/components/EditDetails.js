@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react'
+import React, { Fragment, useState } from 'react'
 import withStyles from '@material-ui/core/styles/withStyles'
 import { post, get } from '../util/apiClient'
 // Redux
@@ -21,9 +21,9 @@ const styles = (theme) => ({
 
 const EditDetails = ({ credentials, classes, loadUser, setUser }) => {
   const [state, setState] = useState({
-    bio: '',
-    location: '',
-    website: '',
+    bio: credentials.bio ? credentials.bio : '',
+    location: credentials.location ? credentials.location : '',
+    website: credentials.website ? credentials.website : '',
     open: false,
   })
 
@@ -62,15 +62,6 @@ const EditDetails = ({ credentials, classes, loadUser, setUser }) => {
       console.error(error)
     }
   }
-
-  useEffect(() => {
-    setState({
-      ...state,
-      bio: credentials.bio ? credentials.bio : '',
-      location: credentials.location ? credentials.location : '',
-      website: credentials.website ? credentials.website : '',
-    })
-  }, [])
 
   return (
     <Fragment>
