@@ -131,7 +131,6 @@ const Login = ({ classes, setUser, setToken, loadUser }) => {
 
 const mapStateToProps = (state) => ({
   user: state.user,
-  UI: state.UI,
 })
 
 const mapActionsToProps = (dispatch) => ({

@@ -4,8 +4,8 @@ export const SET_UNAUTHENTICATED = 'SET_UNAUTHENTICATED'
 export const SET_USER = 'SET_USER'
 export const LOADING_USER = 'LOADING_USER'
 export const SET_TOKEN = 'SET_TOKEN'
-// UI Reducer Types
-export const SET_ERRORS = 'SET_ERRORS'
-export const LOADING_UI = 'LOADING_UI'
-export const CLEAR_ERRORS = 'CLEAR_ERRORS'
 // Data Reducer Types
+export const SET_LITTERS = 'SET_LITTERS'
+export const LOADING_DATA = 'LOADING_DATA'
+export const LIKE_LITTER = 'LIKE_LITTER'
+export const UNLIKE_LITTER = 'UNLIKE_LITTER'
