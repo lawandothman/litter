@@ -7,7 +7,7 @@ axios.defaults.baseURL =
 const getToken = () => {
   return store.getState().user.token
 }
-
+// Post Requests
 export const post = async (url, data) => {
   return (
     await axios.post(url, data, {
@@ -15,9 +15,18 @@ export const post = async (url, data) => {
     })
   ).data
 }
+// Get Requests
 export const get = async (url) => {
   return (
     await axios.get(url, {
+      headers: { Authorization: `Bearer ${getToken()}` },
+    })
+  ).data
+}
+// Delete Requests
+export const del = async (url) => {
+  return (
+    await axios.delete(url, {
       headers: { Authorization: `Bearer ${getToken()}` },
     })
   ).data

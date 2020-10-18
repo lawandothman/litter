@@ -1,4 +1,10 @@
-import { SET_LITTERS, LIKE_LITTER, UNLIKE_LITTER, LOADING_DATA } from '../types'
+import {
+  SET_LITTERS,
+  LIKE_LITTER,
+  UNLIKE_LITTER,
+  LOADING_DATA,
+  DELETE_LITTER,
+} from '../types'
 
 const initialState = {
   litters: [],
@@ -8,26 +14,39 @@ const initialState = {
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case LOADING_DATA:
+    case LOADING_DATA: {
       return {
         ...state,
         loading: true,
       }
-    case SET_LITTERS:
+    }
+    case SET_LITTERS: {
       return {
         ...state,
         litters: action.payload,
         loading: false,
       }
+    }
     case LIKE_LITTER:
-    case UNLIKE_LITTER:
+    case UNLIKE_LITTER: {
       let index = state.litters.findIndex(
-        (litter) => litter.litterId === action.payload.litterId
+        (litter) => litter.Id === action.payload.litterId
       )
       state.litters[index] = action.payload
       return {
         ...state,
       }
+    }
+
+    case DELETE_LITTER: {
+      let index = state.litters.findIndex(
+        (litter) => litter.litterId === action.payload
+      )
+      state.litters.splice(index, 1)
+      return {
+        ...state,
+      }
+    }
     default:
       return state
   }
