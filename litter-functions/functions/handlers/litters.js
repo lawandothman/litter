@@ -29,7 +29,7 @@ exports.getAllLitters = (req, res) => {
 // POST A LITTER
 exports.postOneLitter = (req, res) => {
   if (req.body.body.trim() === '') {
-    return res.status(400).json({ body: '❌  Body must not be empty' })
+    return res.status(400).json({ body: 'Litter must not be empty' })
   }
   const newLitter = {
     body: req.body.body,

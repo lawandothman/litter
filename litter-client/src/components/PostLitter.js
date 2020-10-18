@@ -20,14 +20,16 @@ const styles = (theme) => ({
   ...theme.theme,
   submitButton: {
     position: 'relative',
+    float: 'right',
+    marginTop: 10,
   },
   progressSpinner: {
     position: 'absolute',
   },
   closeButton: {
     position: 'absolute',
-    left: '90%',
-    top: '10%',
+    left: '91%',
+    top: '2%',
   },
 })
 
@@ -43,14 +45,14 @@ function PostLitter({ classes, setLitters }) {
     setState({ ...form, open: true })
   }
   const handleClose = () => {
-    setState({ ...form, open: false })
+    setState({ ...form, open: false, errors: null })
   }
 
   const postLitter = async (newLitter) => {
     try {
       await post('/litter', newLitter)
     } catch (error) {
-      console.error(error)
+      throw error.response.data
     }
   }
 
@@ -69,7 +71,7 @@ function PostLitter({ classes, setLitters }) {
     try {
       setState({ ...form, loading: true })
       await postLitter(newLitter)
-      handleClose()
+      setState({ ...form, body: '', open: false, errors: null })
       const litters = await get('/litters')
       setLitters(litters)
     } catch (error) {
