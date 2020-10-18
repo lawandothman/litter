@@ -37,7 +37,6 @@ export default function (state = initialState, action) {
         ...state,
       }
     }
-
     case DELETE_LITTER: {
       let index = state.litters.findIndex(
         (litter) => litter.litterId === action.payload

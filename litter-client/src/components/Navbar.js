@@ -2,12 +2,12 @@ import React, { Fragment } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import MyButton from '../util/MyButton'
+import PostLitter from './PostLitter'
 // Material UI Stuff
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Button from '@material-ui/core/Button'
 // Icons
-import AddIcon from '@material-ui/icons/Add'
 import HomeIcon from '@material-ui/icons/Home'
 import Notifications from '@material-ui/icons/Notifications'
 
@@ -18,7 +18,7 @@ const Navbar = ({ authenticated }) => {
         {(() => {
           if (!authenticated) {
             return (
-              <>
+              <Fragment>
                 <Button color='inherit' component={Link} to='/'>
                   Home
                 </Button>
@@ -28,14 +28,12 @@ const Navbar = ({ authenticated }) => {
                 <Button color='inherit' component={Link} to='/signup'>
                   Sign Up
                 </Button>
-              </>
+              </Fragment>
             )
           }
           return (
             <Fragment>
-              <MyButton tip='Post a Litter'>
-                <AddIcon color='secondary' />
-              </MyButton>
+              <PostLitter />
               <Link to='/'>
                 <MyButton tip='Home'>
                   <HomeIcon color='secondary' />

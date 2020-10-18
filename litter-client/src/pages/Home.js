@@ -8,7 +8,7 @@ import Profile from '../components/Profile'
 import { connect } from 'react-redux'
 import { setLitters } from '../redux/actions/dataActions'
 
-const Home = ({ data: { litters, loading }, setLitters }) => {
+const Home = ({ data: { litters }, setLitters }) => {
   useEffect(() => {
     const getLitters = async () => {
       try {
