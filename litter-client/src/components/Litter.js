@@ -1,27 +1,23 @@
-import React, { Fragment, useState } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import withStyles from '@material-ui/core/styles/withStyles'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
-import { get, del } from '../util/apiClient'
+import { get } from '../util/apiClient'
 import MyButton from '../util/MyButton'
+import DeleteLitter from './DeleteLitter'
 // Material UI Stuff
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import CardMedia from '@material-ui/core/CardMedia'
 import Typography from '@material-ui/core/Typography'
-import Button from '@material-ui/core/Button'
-import Dialog from '@material-ui/core/Dialog'
-import DialogTitle from '@material-ui/core/DialogTitle'
-import DialogActions from '@material-ui/core/DialogActions'
 //Icons
 import ChatIcon from '@material-ui/icons/Chat'
 import FavoriteBorder from '@material-ui/icons/FavoriteBorder'
 import FavoriteIcon from '@material-ui/icons/Favorite'
-import DeleteOutline from '@material-ui/icons/DeleteOutline'
 // Redux
 import { connect } from 'react-redux'
-import { setLike, setUnlike, setDelete } from '../redux/actions/dataActions'
+import { setLike, setUnlike } from '../redux/actions/dataActions'
 
 const styles = {
   card: {
@@ -35,11 +31,6 @@ const styles = {
   content: {
     padding: 25,
     objectFit: 'cover',
-  },
-  deleteButton: {
-    position: 'absolute',
-    left: '90%',
-    top: '10%',
   },
 }
 
@@ -61,10 +52,8 @@ const Litter = ({
   },
   setLike,
   setUnlike,
-  setDelete,
 }) => {
   dayjs.extend(relativeTime)
-  const [open, setOpen] = useState(false)
 
   const isLiked = () => {
     if (likes && likes.find((like) => like.litterId === litterId)) return true
@@ -88,24 +77,6 @@ const Litter = ({
     }
   }
 
-  const deleteLitter = async () => {
-    try {
-      const deletedLitter = await del(`/litter/${litterId}`)
-      setOpen(false)
-      setDelete(litterId)
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  const handleOpen = () => {
-    setOpen(true)
-  }
-
-  const handleClose = () => {
-    setOpen(false)
-  }
-
   const likeButton = !token ? (
     <MyButton tip='Like'>
       <Link to='/login'>
@@ -123,30 +94,7 @@ const Litter = ({
   )
 
   const deleteButton =
-    token && userHandle === handle ? (
-      <Fragment>
-        <MyButton
-          tip='Delete'
-          onClick={handleOpen}
-          btnClassName={classes.deleteButton}
-        >
-          <DeleteOutline color='primary' />
-        </MyButton>
-        <Dialog open={open} onClose={handleClose} fullWidth maxWidth='sm'>
-          <DialogTitle>
-            Are you sure you want to delete this litter?
-          </DialogTitle>
-          <DialogActions>
-            <Button onClick={handleClose} color='primary'>
-              Cancel
-            </Button>
-            <Button onClick={deleteLitter} color='primary' variant='contained'>
-              Delete
-            </Button>
-          </DialogActions>
-        </Dialog>
-      </Fragment>
-    ) : null
+    token && userHandle === handle ? <DeleteLitter litterId={litterId} /> : null
 
   return (
     <Card className={classes.card}>
@@ -187,7 +135,6 @@ const mapStateToProps = (state) => ({
 const mapActionsToProps = (dispatch) => ({
   setLike: setLike(dispatch),
   setUnlike: setUnlike(dispatch),
-  setDelete: setDelete(dispatch),
 })
 
 export default connect(

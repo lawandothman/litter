@@ -22,6 +22,6 @@ export const setUnlike = (dispatch) => (litter) => {
   dispatch({ type: UNLIKE_LITTER, payload: litter })
 }
 
-export const setDelete = (dispatch) => (litter) => {
-  dispatch({ type: DELETE_LITTER, payload: litter })
+export const setDelete = (dispatch) => (litterId) => {
+  dispatch({ type: DELETE_LITTER, payload: litterId })
 }
