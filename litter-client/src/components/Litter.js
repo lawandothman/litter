@@ -6,6 +6,7 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 import { get } from '../util/apiClient'
 import MyButton from '../util/MyButton'
 import DeleteLitter from './DeleteLitter'
+import LitterDialog from './LitterDialog'
 // Material UI Stuff
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
@@ -123,6 +124,7 @@ const Litter = ({
           <ChatIcon color='primary' />
         </MyButton>
         <span>{commentCount} Comments</span>
+        <LitterDialog litterId={litterId} userHandle={userHandle} />
       </CardContent>
     </Card>
   )

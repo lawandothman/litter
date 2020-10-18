@@ -4,6 +4,7 @@ import {
   UNLIKE_LITTER,
   LOADING_DATA,
   DELETE_LITTER,
+  SET_LITTER,
 } from '../types'
 
 const initialState = {
@@ -25,6 +26,12 @@ export default function (state = initialState, action) {
         ...state,
         litters: action.payload,
         loading: false,
+      }
+    }
+    case SET_LITTER: {
+      return {
+        ...state,
+        litter: action.payload,
       }
     }
     case LIKE_LITTER:

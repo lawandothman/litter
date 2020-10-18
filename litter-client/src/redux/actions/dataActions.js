@@ -4,10 +4,15 @@ import {
   SET_LITTERS,
   UNLIKE_LITTER,
   DELETE_LITTER,
+  SET_LITTER,
 } from '../types'
 
 export const setLitters = (dispatch) => (litters) => {
   dispatch({ type: SET_LITTERS, payload: litters })
+}
+
+export const setLitter = (dispatch) => (litter) => {
+  dispatch({ type: SET_LITTER, payload: litter })
 }
 
 export const loadData = (dispatch) => () => {
