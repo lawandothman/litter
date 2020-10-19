@@ -37,7 +37,7 @@ export default function (state = initialState, action) {
     case LIKE_LITTER:
     case UNLIKE_LITTER: {
       let index = state.litters.findIndex(
-        (litter) => litter.Id === action.payload.litterId
+        (litter) => litter.litterId === action.payload.litterId
       )
       state.litters[index] = action.payload
       return {
