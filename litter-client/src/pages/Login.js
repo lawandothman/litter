@@ -11,7 +11,7 @@ import Button from '@material-ui/core/Button'
 import CircularProgress from '@material-ui/core/CircularProgress'
 // Redux
 import { connect } from 'react-redux'
-import { loadUser, setToken, setUser } from '../redux/actions/userActions'
+import { setToken, setUser } from '../redux/actions/userActions'
 
 const styles = (theme) => ({
   ...theme.theme,
@@ -33,7 +33,7 @@ const getUser = async () => {
   }
 }
 
-const Login = ({ classes, setUser, setToken, loadUser }) => {
+const Login = ({ classes, setUser, setToken }) => {
   const [form, setState] = useState({
     email: '',
     password: '',
@@ -58,7 +58,6 @@ const Login = ({ classes, setUser, setToken, loadUser }) => {
     try {
       setState({ ...form, loading: true })
       const { token } = await getToken(userData)
-      loadUser()
       setToken(token)
       const user = await getUser()
       setUser(user)
@@ -95,8 +94,8 @@ const Login = ({ classes, setUser, setToken, loadUser }) => {
             type='password'
             label='Password'
             className={classes.textField}
-            helperText={form.errors?.email}
-            error={!!form.errors?.email}
+            helperText={form.errors?.password}
+            error={!!form.errors?.password}
             value={form.password}
             onChange={handleChange}
             fullWidth
@@ -136,7 +135,6 @@ const mapStateToProps = (state) => ({
 const mapActionsToProps = (dispatch) => ({
   setUser: setUser(dispatch),
   setToken: setToken(dispatch),
-  loadUser: loadUser(dispatch),
 })
 
 export default connect(

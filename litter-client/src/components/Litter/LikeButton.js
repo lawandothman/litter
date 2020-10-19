@@ -1,13 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { get } from '../util/apiClient'
-import MyButton from '../util/MyButton'
+import { get } from '../../util/apiClient'
+import MyButton from '../../util/MyButton'
 // Icons
 import FavoriteBorder from '@material-ui/icons/FavoriteBorder'
 import FavoriteIcon from '@material-ui/icons/Favorite'
 // Redux
 import { connect } from 'react-redux'
-import { setLike, setUnlike } from '../redux/actions/dataActions'
+import { setLike, setUnlike } from '../../redux/actions/dataActions'
 
 function LikeButton({ user: { likes, token }, litterId, setLike, setUnlike }) {
   const isLiked = () => {

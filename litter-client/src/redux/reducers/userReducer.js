@@ -1,14 +1,7 @@
-import {
-  SET_USER,
-  SET_TOKEN,
-  LOADING_USER,
-  LIKE_LITTER,
-  UNLIKE_LITTER,
-} from '../types'
+import { SET_USER, SET_TOKEN, LIKE_LITTER, UNLIKE_LITTER } from '../types'
 
 const initialState = {
   credentials: {},
-  loading: false,
   likes: [],
   notifications: [],
   token: null,
@@ -19,18 +12,12 @@ export default function (state = initialState, action) {
     case SET_USER:
       return {
         ...state,
-        loading: false,
         ...action.payload,
       }
     case SET_TOKEN:
       return {
         ...state,
         token: action.payload,
-      }
-    case LOADING_USER:
-      return {
-        ...state,
-        loading: true,
       }
     case LIKE_LITTER:
       return {

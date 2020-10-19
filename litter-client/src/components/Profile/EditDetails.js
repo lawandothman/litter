@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react'
-import { post, get } from '../util/apiClient'
-import MyButton from '../util/MyButton'
+import { post, get } from '../../util/apiClient'
+import MyButton from '../../util/MyButton'
 // Material UI
 import withStyles from '@material-ui/core/styles/withStyles'
 import Button from '@material-ui/core/Button'
@@ -13,7 +13,7 @@ import DialogTitle from '@material-ui/core/DialogTitle'
 import EditIcon from '@material-ui/icons/Edit'
 // Redux
 import { connect } from 'react-redux'
-import { loadUser, setUser } from '../redux/actions/userActions'
+import { setUser } from '../../redux/actions/userActions'
 
 const styles = (theme) => ({
   ...theme.theme,
@@ -22,12 +22,13 @@ const styles = (theme) => ({
   },
 })
 
-const EditDetails = ({ credentials, classes, loadUser, setUser }) => {
+const EditDetails = ({ credentials, classes, setUser }) => {
   const [state, setState] = useState({
     bio: credentials.bio ? credentials.bio : '',
     location: credentials.location ? credentials.location : '',
     website: credentials.website ? credentials.website : '',
     open: false,
+    loading: false,
   })
 
   const handleOpen = () => {
@@ -58,7 +59,7 @@ const EditDetails = ({ credentials, classes, loadUser, setUser }) => {
     }
     try {
       await post('/user', userDetails)
-      loadUser()
+      setState({ ...state, loading: true, open: false })
       const user = await get('/user')
       setUser(user)
     } catch (error) {
@@ -131,7 +132,6 @@ const EditDetails = ({ credentials, classes, loadUser, setUser }) => {
 }
 
 const mapActionsToProps = (dispatch) => ({
-  loadUser: loadUser(dispatch),
   setUser: setUser(dispatch),
 })
 

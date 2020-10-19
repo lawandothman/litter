@@ -1,10 +1,10 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
 import withStyles from '@material-ui/core/styles/withStyles'
 import { Link } from 'react-router-dom'
 import dayjs from 'dayjs'
-import { post, get } from '../util/apiClient'
+import { post, get } from '../../util/apiClient'
 import EditDetails from './EditDetails'
-import MyButton from '../util/MyButton'
+import MyButton from '../../util/MyButton'
 // Material UI
 import Button from '@material-ui/core/Button'
 import Paper from '@material-ui/core/Paper'
@@ -17,7 +17,7 @@ import CalendarToday from '@material-ui/icons/CalendarToday'
 import CameraAltIcon from '@material-ui/icons/CameraAlt'
 import KeyboardReturn from '@material-ui/icons/KeyboardReturn'
 // Redux
-import { setUser, loadUser, logoutUser } from '../redux/actions/userActions'
+import { setUser, logoutUser } from '../../redux/actions/userActions'
 import { connect } from 'react-redux'
 
 const styles = (theme) => ({
@@ -72,13 +72,13 @@ const Profile = ({
   classes,
   user: {
     credentials: { handle, createdAt, imageUrl, bio, location, website },
-    loading,
     token,
   },
-  loadUser,
   setUser,
   logoutUser,
 }) => {
+  const [loading, setLoading] = useState(false)
+
   const handleEditPicture = () => {
     const fileInput = document.getElementById('imageInput')
     fileInput.click()
@@ -90,7 +90,7 @@ const Profile = ({
     formData.append('image', image, image.name)
     try {
       await post('/user/image', formData)
-      loadUser()
+      setLoading(true)
       const user = await get('/user')
       setUser(user)
     } catch (error) {
@@ -195,7 +195,6 @@ const mapStateToProps = (state) => ({
 
 const mapActionsToProps = (dispatch) => ({
   setUser: setUser(dispatch),
-  loadUser: loadUser(dispatch),
   logoutUser: logoutUser(dispatch),
 })
 

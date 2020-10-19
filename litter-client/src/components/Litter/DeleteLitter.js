@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react'
-import { del } from '../util/apiClient'
-import MyButton from '../util/MyButton'
+import { del } from '../../util/apiClient'
+import MyButton from '../../util/MyButton'
 // Material UI
 import withStyles from '@material-ui/core/styles/withStyles'
 import Button from '@material-ui/core/Button'
@@ -11,7 +11,7 @@ import DialogActions from '@material-ui/core/DialogActions'
 import DeleteOutline from '@material-ui/icons/DeleteOutline'
 // Redux
 import { connect } from 'react-redux'
-import { setDelete } from '../redux/actions/dataActions'
+import { setDelete } from '../../redux/actions/dataActions'
 
 const styles = {
   deleteButton: {

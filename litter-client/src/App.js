@@ -3,9 +3,8 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import './App.css'
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 import themeFile from './util/theme'
-// Redux
 // Components
-import Navbar from './components/Navbar'
+import Navbar from './components/Layout/Navbar'
 import AuthRoute from './util/AuthRoute'
 // Pages
 import Home from './pages/Home'

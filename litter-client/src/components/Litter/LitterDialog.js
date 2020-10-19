@@ -1,8 +1,8 @@
 import React, { Fragment, useState } from 'react'
 import { Link } from 'react-router-dom'
 import dayjs from 'dayjs'
-import { get } from '../util/apiClient'
-import MyButton from '../util/MyButton'
+import { get } from '../../util/apiClient'
+import MyButton from '../../util/MyButton'
 import LikeButton from './LikeButton'
 // Material UI
 import withStyles from '@material-ui/core/styles/withStyles'
@@ -17,7 +17,7 @@ import UnfoldMore from '@material-ui/icons/UnfoldMore'
 import ChatIcon from '@material-ui/icons/Chat'
 // Redux
 import { connect } from 'react-redux'
-import { setLitter } from '../redux/actions/dataActions'
+import { setLitter } from '../../redux/actions/dataActions'
 
 const styles = (theme) => ({
   ...theme.theme,

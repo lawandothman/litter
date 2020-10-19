@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { Link } from 'react-router-dom'
-import MyButton from '../util/MyButton'
-import PostLitter from './PostLitter'
+import MyButton from '../../util/MyButton'
+import PostLitter from '../Litter/PostLitter'
 // Material UI Stuff
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'

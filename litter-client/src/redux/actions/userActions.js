@@ -1,4 +1,4 @@
-import { SET_USER, SET_TOKEN, LOADING_USER } from '../types'
+import { SET_USER, SET_TOKEN } from '../types'
 
 export const logoutUser = (dispatch) => () => {
   dispatch({ type: SET_TOKEN, payload: null })
@@ -9,8 +9,4 @@ export const setUser = (dispatch) => (user) => {
 }
 export const setToken = (dispatch) => (token) => {
   dispatch({ type: SET_TOKEN, payload: token })
-}
-
-export const loadUser = (dispatch) => () => {
-  dispatch({ type: LOADING_USER })
 }

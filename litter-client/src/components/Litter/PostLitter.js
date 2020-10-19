@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react'
 import withStyles from '@material-ui/core/styles/withStyles'
-import { get, post } from '../util/apiClient'
-import MyButton from '../util/MyButton'
+import { get, post } from '../../util/apiClient'
+import MyButton from '../../util/MyButton'
 // Material UI
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
@@ -14,7 +14,7 @@ import AddIcon from '@material-ui/icons/Add'
 import CloseIcon from '@material-ui/icons/Close'
 // Redux
 import { connect } from 'react-redux'
-import { setLitters } from '../redux/actions/dataActions'
+import { setLitters } from '../../redux/actions/dataActions'
 
 const styles = (theme) => ({
   ...theme.theme,
