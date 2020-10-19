@@ -1,18 +1,19 @@
 import React, { Fragment, useState } from 'react'
-import withStyles from '@material-ui/core/styles/withStyles'
 import { post, get } from '../util/apiClient'
 import MyButton from '../util/MyButton'
-// Redux
-import { connect } from 'react-redux'
-import { loadUser, setUser } from '../redux/actions/userActions'
 // Material UI
+import withStyles from '@material-ui/core/styles/withStyles'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import Dialog from '@material-ui/core/Dialog'
 import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogTitle from '@material-ui/core/DialogTitle'
+// Icons
 import EditIcon from '@material-ui/icons/Edit'
+// Redux
+import { connect } from 'react-redux'
+import { loadUser, setUser } from '../redux/actions/userActions'
 
 const styles = (theme) => ({
   ...theme.theme,

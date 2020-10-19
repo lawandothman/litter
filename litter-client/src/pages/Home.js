@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react'
-import Grid from '@material-ui/core/Grid'
 import { get } from '../util/apiClient'
 // Components
 import Litter from '../components/Litter'
 import Profile from '../components/Profile'
+// Material UI
+import Grid from '@material-ui/core/Grid'
 // Redux
 import { connect } from 'react-redux'
 import { setLitters } from '../redux/actions/dataActions'

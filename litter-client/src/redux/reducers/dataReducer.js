@@ -40,6 +40,9 @@ export default function (state = initialState, action) {
         (litter) => litter.litterId === action.payload.litterId
       )
       state.litters[index] = action.payload
+      if (state.litter.litterId === action.payload.litterId) {
+        state.litter = action.payload
+      }
       return {
         ...state,
       }

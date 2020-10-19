@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react'
 import { Link } from 'react-router-dom'
-import { connect } from 'react-redux'
 import MyButton from '../util/MyButton'
 import PostLitter from './PostLitter'
 // Material UI Stuff
@@ -10,6 +9,8 @@ import Button from '@material-ui/core/Button'
 // Icons
 import HomeIcon from '@material-ui/icons/Home'
 import Notifications from '@material-ui/icons/Notifications'
+// Redux
+import { connect } from 'react-redux'
 
 const Navbar = ({ authenticated }) => {
   return (

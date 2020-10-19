@@ -1,13 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import withStyles from '@material-ui/core/styles/withStyles'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import MyButton from '../util/MyButton'
 import DeleteLitter from './DeleteLitter'
 import LitterDialog from './LitterDialog'
 import LikeButton from './LikeButton'
-// Material UI Stuff
+// Material UI
+import withStyles from '@material-ui/core/styles/withStyles'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import CardMedia from '@material-ui/core/CardMedia'

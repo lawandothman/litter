@@ -1,10 +1,11 @@
 import React, { Fragment, useState } from 'react'
-import withStyles from '@material-ui/core/styles/withStyles'
+import { Link } from 'react-router-dom'
+import dayjs from 'dayjs'
 import { get } from '../util/apiClient'
 import MyButton from '../util/MyButton'
-import dayjs from 'dayjs'
-import { Link } from 'react-router-dom'
+import LikeButton from './LikeButton'
 // Material UI
+import withStyles from '@material-ui/core/styles/withStyles'
 import Dialog from '@material-ui/core/Dialog'
 import DialogContent from '@material-ui/core/DialogContent'
 import CircularProgress from '@material-ui/core/CircularProgress'
@@ -13,6 +14,7 @@ import Typography from '@material-ui/core/Typography'
 // Icons
 import CloseIcon from '@material-ui/icons/Close'
 import UnfoldMore from '@material-ui/icons/UnfoldMore'
+import ChatIcon from '@material-ui/icons/Chat'
 // Redux
 import { connect } from 'react-redux'
 import { setLitter } from '../redux/actions/dataActions'
@@ -101,6 +103,12 @@ const LitterDialog = ({
         </Typography>
         <hr className={classes.invisibleSeparator} />
         <Typography variant='body2'>{body}</Typography>
+        <LikeButton litterId={litterId} />
+        <span>{likeCount} Likes</span>
+        <MyButton tip='comments'>
+          <ChatIcon color='primary' />
+        </MyButton>
+        <span>{commentCount} Comments</span>
       </Grid>
     </Grid>
   )

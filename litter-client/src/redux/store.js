@@ -3,8 +3,9 @@ import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import dataReducer from './reducers/dataReducer'
 import userReducer from './reducers/userReducer'
+import { loadState } from '../util/localStorage'
 
-const initialState = {}
+const persistedState = loadState()
 
 const middleware = [thunk]
 
@@ -15,7 +16,7 @@ const reducers = combineReducers({
 
 const store = createStore(
   reducers,
-  initialState,
+  persistedState,
   composeWithDevTools(applyMiddleware(...middleware))
 )
 

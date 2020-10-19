@@ -1,15 +1,15 @@
 import React, { useState } from 'react'
 import { useHistory, Link } from 'react-router-dom'
-import withStyles from '@material-ui/core/styles/withStyles'
 import AppIcon from '../images/icon.png'
 import { post, get } from '../util/apiClient'
-// Material UI Stuff
+// Material UI
+import withStyles from '@material-ui/core/styles/withStyles'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import CircularProgress from '@material-ui/core/CircularProgress'
-// Redux Stuff
+// Redux
 import { connect } from 'react-redux'
 import { loadUser, setToken, setUser } from '../redux/actions/userActions'
 

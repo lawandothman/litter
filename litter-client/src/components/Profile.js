@@ -1,15 +1,11 @@
 import React, { Fragment } from 'react'
 import withStyles from '@material-ui/core/styles/withStyles'
-import theme from '../util/theme'
 import { Link } from 'react-router-dom'
 import dayjs from 'dayjs'
 import { post, get } from '../util/apiClient'
 import EditDetails from './EditDetails'
 import MyButton from '../util/MyButton'
-//Redux
-import { setUser, loadUser, logoutUser } from '../redux/actions/userActions'
-import { connect } from 'react-redux'
-// Material UI Stuff
+// Material UI
 import Button from '@material-ui/core/Button'
 import Paper from '@material-ui/core/Paper'
 import MuiLink from '@material-ui/core/Link'
@@ -20,8 +16,11 @@ import LinkIcon from '@material-ui/icons/Link'
 import CalendarToday from '@material-ui/icons/CalendarToday'
 import CameraAltIcon from '@material-ui/icons/CameraAlt'
 import KeyboardReturn from '@material-ui/icons/KeyboardReturn'
+// Redux
+import { setUser, loadUser, logoutUser } from '../redux/actions/userActions'
+import { connect } from 'react-redux'
 
-const styles = {
+const styles = (theme) => ({
   paper: {
     padding: 20,
   },
@@ -67,7 +66,7 @@ const styles = {
       margin: '20px 10px',
     },
   },
-}
+})
 
 const Profile = ({
   classes,
