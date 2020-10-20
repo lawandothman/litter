@@ -4,6 +4,7 @@ import dayjs from 'dayjs'
 import { get } from '../../util/apiClient'
 import MyButton from '../../util/MyButton'
 import LikeButton from './LikeButton'
+import Comments from './Comments'
 // Material UI
 import withStyles from '@material-ui/core/styles/withStyles'
 import Dialog from '@material-ui/core/Dialog'
@@ -21,10 +22,6 @@ import { setLitter } from '../../redux/actions/dataActions'
 
 const styles = (theme) => ({
   ...theme.theme,
-  invisibleSeparator: {
-    border: 'none',
-    margin: 4,
-  },
   profileImage: {
     maxWidth: 200,
     height: 200,
@@ -51,7 +48,15 @@ const styles = (theme) => ({
 
 const LitterDialog = ({
   classes,
-  litter: { body, createdAt, likeCount, commentCount, userImage, userHandle },
+  litter: {
+    body,
+    createdAt,
+    likeCount,
+    commentCount,
+    userImage,
+    userHandle,
+    comments,
+  },
   setLitter,
   litterId,
 }) => {
@@ -84,7 +89,7 @@ const LitterDialog = ({
       <CircularProgress size={200} thickness={2} />
     </div>
   ) : (
-    <Grid container spacing={10}>
+    <Grid container spacing={0}>
       <Grid item sm={5}>
         <img src={userImage} alt='Profile' className={classes.profileImage} />
       </Grid>
@@ -110,6 +115,8 @@ const LitterDialog = ({
         </MyButton>
         <span>{commentCount} Comments</span>
       </Grid>
+      <hr className={classes.visibleSeparator} />
+      <Comments comments={comments} />
     </Grid>
   )
 

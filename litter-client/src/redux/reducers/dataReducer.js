@@ -41,7 +41,9 @@ export default function (state = initialState, action) {
       )
       state.litters[index] = action.payload
       if (state.litter.litterId === action.payload.litterId) {
+        let temp = state.litter.comments
         state.litter = action.payload
+        state.litter.comments = temp
       }
       return {
         ...state,
