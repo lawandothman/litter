@@ -7,11 +7,7 @@ import App from './App'
 import * as serviceWorker from './serviceWorker'
 
 store.subscribe(() => {
-  saveState(
-    store.getState({
-      user: store.getState().user,
-    })
-  )
+  saveState(store.getState())
 })
 
 ReactDOM.render(

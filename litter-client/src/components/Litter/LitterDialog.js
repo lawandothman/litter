@@ -5,6 +5,7 @@ import { get } from '../../util/apiClient'
 import MyButton from '../../util/MyButton'
 import LikeButton from './LikeButton'
 import Comments from './Comments'
+import CommentForm from './CommentForm'
 // Material UI
 import withStyles from '@material-ui/core/styles/withStyles'
 import Dialog from '@material-ui/core/Dialog'
@@ -80,7 +81,7 @@ const LitterDialog = ({
     setState({ ...state, open: true })
     getLitter()
   }
-  const handleClose = () => {
+  const handleClose = async () => {
     setState({ ...state, open: false })
   }
 
@@ -116,6 +117,7 @@ const LitterDialog = ({
         <span>{commentCount} Comments</span>
       </Grid>
       <hr className={classes.visibleSeparator} />
+      <CommentForm litterId={litterId} />
       <Comments comments={comments} />
     </Grid>
   )

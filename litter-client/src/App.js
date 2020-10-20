@@ -4,7 +4,7 @@ import './App.css'
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 import themeFile from './util/theme'
 // Components
-import Navbar from './components/Layout/Navbar'
+import Navbar from './components/layout/Navbar'
 import AuthRoute from './util/AuthRoute'
 // Pages
 import Home from './pages/Home'

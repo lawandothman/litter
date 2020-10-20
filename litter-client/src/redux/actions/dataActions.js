@@ -5,6 +5,7 @@ import {
   UNLIKE_LITTER,
   DELETE_LITTER,
   SET_LITTER,
+  SUBMIT_COMMENT,
 } from '../types'
 
 export const setLitters = (dispatch) => (litters) => {
@@ -17,6 +18,10 @@ export const setLitter = (dispatch) => (litter) => {
 
 export const loadData = (dispatch) => () => {
   dispatch({ type: LOADING_DATA })
+}
+
+export const setComment = (dispatch) => (comment) => {
+  dispatch({ type: SUBMIT_COMMENT, payload: comment })
 }
 
 export const setLike = (dispatch) => (litter) => {

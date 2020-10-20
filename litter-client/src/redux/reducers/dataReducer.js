@@ -5,6 +5,7 @@ import {
   LOADING_DATA,
   DELETE_LITTER,
   SET_LITTER,
+  SUBMIT_COMMENT,
 } from '../types'
 
 const initialState = {
@@ -36,21 +37,41 @@ export default function (state = initialState, action) {
     }
     case LIKE_LITTER:
     case UNLIKE_LITTER: {
-      let index = state.litters.findIndex(
+      const index = state.litters.findIndex(
         (litter) => litter.litterId === action.payload.litterId
       )
-      state.litters[index] = action.payload
+      state.litters[index].likeCount = action.payload.likeCount
       if (state.litter.litterId === action.payload.litterId) {
-        let temp = state.litter.comments
-        state.litter = action.payload
-        state.litter.comments = temp
+        state.litter.likeCount = action.payload.likeCount
       }
       return {
         ...state,
+        litters: [...state.litters],
+        litter: {
+          ...state.litter,
+        },
+      }
+    }
+    case SUBMIT_COMMENT: {
+      const index = state.litters.findIndex(
+        (litter) => litter.litterId === action.payload.litterId
+      )
+      return {
+        ...state,
+        litter: {
+          ...state.litter,
+          comments: [action.payload, ...state.litter.comments],
+          commentCount: state.litter.commentCount + 1,
+        },
+        litters: state.litters.map((litter, littersArrIndex) =>
+          littersArrIndex === index
+            ? { ...litter, commentCount: litter.commentCount + 1 }
+            : litter
+        ),
       }
     }
     case DELETE_LITTER: {
-      let index = state.litters.findIndex(
+      const index = state.litters.findIndex(
         (litter) => litter.litterId === action.payload
       )
       state.litters.splice(index, 1)
