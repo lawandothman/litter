@@ -138,7 +138,7 @@ exports.getUserDetails = (req, res) => {
           createdAt: doc.data().createdAt,
           userImage: doc.data().userImage,
           userHandle: doc.data().userHandle,
-          likeCount: doc.data().likesCount,
+          likeCount: doc.data().likeCount,
           commentCount: doc.data().commentCount,
         })
       })
