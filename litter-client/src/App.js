@@ -21,10 +21,14 @@ function App() {
         <Navbar />
         <div className='container'>
           <Switch>
-            <Route exact path='/' component={Home}></Route>
+            <AuthRoute exact path='/' component={Home}></AuthRoute>
             <AuthRoute exact path='/login' component={Login}></AuthRoute>
             <AuthRoute exact path='/signup' component={Signup}></AuthRoute>
-            <Route exact path='/users/:userHandle' component={User}></Route>
+            <AuthRoute
+              exact
+              path='/users/:userHandle'
+              component={User}
+            ></AuthRoute>
           </Switch>
         </div>
       </Router>
