@@ -45,7 +45,11 @@ function User({ match, data: { litters }, setLitters }) {
   return (
     <Grid container spacing={10}>
       <Grid item sm={4} xs={12}>
-        <StaticProfile profile={state.profile} />
+        {state.profile === null ? (
+          <p>Loading Profile ...</p>
+        ) : (
+          <StaticProfile profile={state.profile} />
+        )}
       </Grid>
       <Grid item sm={8} xs={12}>
         {littersMarkup}
