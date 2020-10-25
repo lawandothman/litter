@@ -1,6 +1,5 @@
 import {
   LIKE_LITTER,
-  LOADING_DATA,
   SET_LITTERS,
   UNLIKE_LITTER,
   DELETE_LITTER,
@@ -14,10 +13,6 @@ export const setLitters = (dispatch) => (litters) => {
 
 export const setLitter = (dispatch) => (litter) => {
   dispatch({ type: SET_LITTER, payload: litter })
-}
-
-export const loadData = (dispatch) => () => {
-  dispatch({ type: LOADING_DATA })
 }
 
 export const setComment = (dispatch) => (comment) => {

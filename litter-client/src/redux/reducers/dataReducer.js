@@ -2,7 +2,6 @@ import {
   SET_LITTERS,
   LIKE_LITTER,
   UNLIKE_LITTER,
-  LOADING_DATA,
   DELETE_LITTER,
   SET_LITTER,
   SUBMIT_COMMENT,
@@ -11,17 +10,10 @@ import {
 const initialState = {
   litters: [],
   litter: {},
-  loading: false,
 }
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case LOADING_DATA: {
-      return {
-        ...state,
-        loading: true,
-      }
-    }
     case SET_LITTERS: {
       return {
         ...state,
