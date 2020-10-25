@@ -2,18 +2,16 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
-import MyButton from '../../util/MyButton'
 import DeleteLitter from './DeleteLitter'
 import LitterDialog from './LitterDialog'
 import LikeButton from './LikeButton'
+import CommentButton from './CommentButton'
 // Material UI
 import withStyles from '@material-ui/core/styles/withStyles'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import CardMedia from '@material-ui/core/CardMedia'
 import Typography from '@material-ui/core/Typography'
-//Icons
-import ChatIcon from '@material-ui/icons/Chat'
 // Redux
 import { connect } from 'react-redux'
 
@@ -77,9 +75,7 @@ const Litter = ({
         <Typography variant='body1'>{body}</Typography>
         <LikeButton litterId={litterId} />
         <span>{likeCount} Likes</span>
-        <MyButton tip='comments'>
-          <ChatIcon color='primary' />
-        </MyButton>
+        <CommentButton litterId={litterId} userHandle={userHandle} />
         <span>{commentCount} Comments</span>
         <LitterDialog
           litterId={litterId}
