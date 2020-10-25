@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useState, useEffect, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import dayjs from 'dayjs'
 import { get } from '../../util/apiClient'
@@ -60,30 +60,38 @@ const LitterDialog = ({
   },
   setLitter,
   litterId,
+  openDialog,
 }) => {
   const [state, setState] = useState({
     open: false,
     loading: false,
+    oldPath: '',
+    newPath: '',
   })
 
-  const getLitter = async () => {
+  const handleOpen = useCallback(async () => {
     try {
       setState({ open: true, loading: true })
       const litter = await get(`/litter/${litterId}`)
       setLitter(litter)
-      setState({ open: true, loading: false })
+      let oldPath = window.location.pathname
+      const newPath = `/users/${userHandle}/litter/${litterId}`
+      if (oldPath === newPath) oldPath = `/users/${userHandle}`
+      window.history.pushState(null, null, newPath)
+      setState({ open: true, loading: false, oldPath, newPath })
     } catch (error) {
       console.error(error)
     }
+  }, [litterId, setLitter, userHandle])
+
+  const handleClose = async () => {
+    window.history.pushState(null, null, state.oldPath)
+    setState({ open: false })
   }
 
-  const handleOpen = () => {
-    setState({ ...state, open: true })
-    getLitter()
-  }
-  const handleClose = async () => {
-    setState({ ...state, open: false })
-  }
+  useEffect(() => {
+    if (openDialog) handleOpen()
+  }, [handleOpen, openDialog])
 
   const dialogMarkup = state.loading ? (
     <div className={classes.spinnerDiv}>

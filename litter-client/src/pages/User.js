@@ -17,29 +17,43 @@ function User({ match, data: { litters }, setLitters }) {
   const [state, setState] = useState({
     profile: null,
     loading: false,
+    litterIdParam: null,
   })
 
   const userHandle = match.params.userHandle
+  const litterId = match.params.litterId
+
   useEffect(() => {
+    if (litterId) setState({ litterIdParam: litterId })
     const fetchUserData = async () => {
       try {
         setState({ profile: null, loading: true })
         const userData = await get(`/user/${userHandle}`)
         setLitters(userData.litters)
-        setState({ profile: userData.user, loading: false })
+        setState({
+          litterIdParam: litterId,
+          profile: userData.user,
+          loading: false,
+        })
       } catch (error) {
         console.error(error)
       }
     }
     fetchUserData()
-  }, [setLitters, userHandle])
+  }, [setLitters, litterId, userHandle])
 
   const littersMarkup = state.loading ? (
     <p>Loading litters ...</p>
   ) : litters === null ? (
     <p>No litters from this user</p>
-  ) : (
+  ) : !state.litterIdParam ? (
     litters.map((litter) => <Litter key={litter.litterId} litter={litter} />)
+  ) : (
+    litters.map((litter) => {
+      if (litter.litterId !== state.litterIdParam)
+        return <Litter key={litter.litterId} litter={litter} />
+      else return <Litter key={litter.litterId} litter={litter} openDialog />
+    })
   )
 
   return (

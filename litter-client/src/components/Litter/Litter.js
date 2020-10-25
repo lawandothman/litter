@@ -49,6 +49,7 @@ const Litter = ({
     token,
     credentials: { handle },
   },
+  openDialog,
 }) => {
   const deleteButton =
     token && userHandle === handle ? <DeleteLitter litterId={litterId} /> : null
@@ -80,7 +81,11 @@ const Litter = ({
           <ChatIcon color='primary' />
         </MyButton>
         <span>{commentCount} Comments</span>
-        <LitterDialog litterId={litterId} userHandle={userHandle} />
+        <LitterDialog
+          litterId={litterId}
+          userHandle={userHandle}
+          openDialog={openDialog}
+        />
       </CardContent>
     </Card>
   )
