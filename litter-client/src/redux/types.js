@@ -1,6 +1,7 @@
 // User Reducer Types
 export const SET_USER = 'SET_USER'
 export const SET_TOKEN = 'SET_TOKEN'
+export const MARK_NOTIFICATIONS_READ = 'MARK_NOTIFICATIONS_READ'
 // Data Reducer Types
 export const SET_LITTERS = 'SET_LITTERS'
 export const SET_LITTER = 'SET_LITTER'

@@ -1,4 +1,10 @@
-import { SET_USER, SET_TOKEN, LIKE_LITTER, UNLIKE_LITTER } from '../types'
+import {
+  SET_USER,
+  SET_TOKEN,
+  LIKE_LITTER,
+  UNLIKE_LITTER,
+  MARK_NOTIFICATIONS_READ,
+} from '../types'
 
 const initialState = {
   credentials: {},
@@ -36,6 +42,11 @@ export default function (state = initialState, action) {
         likes: state.likes.filter(
           (like) => like.litterId !== action.payload.litterId
         ),
+      }
+    case MARK_NOTIFICATIONS_READ:
+      state.notifications.forEach((not) => (not.read = true))
+      return {
+        ...state,
       }
     default:
       return state
