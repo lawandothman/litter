@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { get } from '../util/apiClient'
 import Litter from '../components/litter/Litter'
 import StaticProfile from '../components/profile/StaticProfile'
+import LitterSkeleton from '../util/LitterSkeleton'
+import ProfileSkeleton from '../util/ProfileSkeleton'
 // Material UI
 import withStyles from '@material-ui/core/styles/withStyles'
 import Grid from '@material-ui/core/Grid'
@@ -43,7 +45,7 @@ function User({ match, data: { litters }, setLitters }) {
   }, [setLitters, litterId, userHandle])
 
   const littersMarkup = state.loading ? (
-    <p>Loading litters ...</p>
+    <LitterSkeleton />
   ) : litters === null ? (
     <p>No litters from this user</p>
   ) : !state.litterIdParam ? (
@@ -60,7 +62,7 @@ function User({ match, data: { litters }, setLitters }) {
     <Grid container spacing={10}>
       <Grid item sm={4} xs={12}>
         {state.profile === null ? (
-          <p>Loading Profile ...</p>
+          <ProfileSkeleton />
         ) : (
           <StaticProfile profile={state.profile} />
         )}

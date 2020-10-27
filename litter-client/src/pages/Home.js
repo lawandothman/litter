@@ -3,6 +3,7 @@ import { get } from '../util/apiClient'
 // Components
 import Litter from '../components/litter/Litter'
 import Profile from '../components/profile/Profile'
+import LitterSkeleton from '../util/LitterSkeleton'
 // Material UI
 import Grid from '@material-ui/core/Grid'
 // Redux
@@ -26,7 +27,7 @@ const Home = ({ data: { litters }, setLitters }) => {
     litters.length > 0 ? (
       litters.map((litter) => <Litter key={litter.litterId} litter={litter} />)
     ) : (
-      <p>Loading ...</p>
+      <LitterSkeleton />
     )
 
   return (

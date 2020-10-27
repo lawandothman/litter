@@ -38,11 +38,8 @@ function Notifications({ notifications, setNotificationsRead }) {
       let unreadNotifications = notifications
         .filter((not) => !not.read)
         .map((not) => not.notificationId)
-      const notificationsToRead = await post(
-        '/notifications',
-        unreadNotifications
-      )
-      setNotificationsRead(notificationsToRead)
+      await post('/notifications', unreadNotifications)
+      setNotificationsRead()
     } catch (error) {
       console.error(error)
     }
@@ -63,7 +60,7 @@ function Notifications({ notifications, setNotificationsRead }) {
         ))
       : (notificationsIcon = <NotificationsIcon color='secondary' />)
   } else {
-    notificationsIcon = <NotificationsIcon />
+    notificationsIcon = <NotificationsIcon color='secondary' />
   }
 
   let notificationsMarkup =

@@ -12,6 +12,6 @@ export const setToken = (dispatch) => (token) => {
   dispatch({ type: SET_TOKEN, payload: token })
 }
 
-export const setNotificationsRead = (dispatch) => {
+export const setNotificationsRead = (dispatch) => () => {
   dispatch({ type: MARK_NOTIFICATIONS_READ })
 }

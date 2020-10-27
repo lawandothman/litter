@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { get, post } from '../../util/apiClient'
+import { post } from '../../util/apiClient'
 // Material UI
 import withStyles from '@material-ui/core/styles/withStyles'
 import Button from '@material-ui/core/Button'
@@ -15,7 +15,7 @@ const styles = (theme) => ({
 
 const submitComment = async (litterId, commentData) => {
   try {
-    await post(`/litter/${litterId}/comment`, commentData)
+    return await post(`/litter/${litterId}/comment`, commentData)
   } catch (error) {
     throw error.response.data
   }
@@ -38,12 +38,11 @@ const CommentForm = ({ classes, token, litterId, setComment }) => {
     event.preventDefault()
     try {
       const commentData = { body: state.body }
-      await submitComment(litterId, commentData)
-      const commentedLitter = await get(`/litter/${litterId}`)
+      const commentedLitter = await submitComment(litterId, commentData)
       setComment(commentedLitter)
       setState({ body: '', errors: null })
     } catch (error) {
-      setState({ ...state, errors: error })
+      setState({ errors: error })
     }
   }
 

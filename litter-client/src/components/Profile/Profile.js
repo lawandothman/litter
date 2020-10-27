@@ -5,6 +5,7 @@ import dayjs from 'dayjs'
 import { post, get } from '../../util/apiClient'
 import EditDetails from './EditDetails'
 import MyButton from '../../util/MyButton'
+import ProfileSkeleton from '../../util/ProfileSkeleton'
 // Material UI
 import Button from '@material-ui/core/Button'
 import Paper from '@material-ui/core/Paper'
@@ -183,7 +184,7 @@ const Profile = ({
     )
   ) : (
     <div>
-      <p>Loading</p>
+      <ProfileSkeleton />
     </div>
   )
   return profileMarkUp
