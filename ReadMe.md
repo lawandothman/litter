@@ -5,7 +5,7 @@
 
 A microblogging and social networking service on which users post and interact with messages known as "litters".
 
-This project was built with [Firebase](https://firebase.google.com/) and [React](https://reactjs.org/). 
+This project was built with [Firebase](https://firebase.google.com/) and [React](https://reactjs.org/) with Hooks.
 
 ## Available Scripts
 
