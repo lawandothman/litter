@@ -12,8 +12,12 @@ datasource db {
   referentialIntegrity = "prisma"
 }
 
-model Example {
-    id String @id @default(cuid())
+model Litter {
+  id        String     @default(cuid()) @id
+  body      String
+  published Boolean @default(false)
+  author    User?   @relation(fields: [authorId], references: [id])
+  authorId  String?
 }
 
 // Necessary for Next auth
@@ -51,6 +55,7 @@ model User {
     image         String?
     accounts      Account[]
     sessions      Session[]
+    litters       Litter[]
 }
 
 model VerificationToken {
